@@ -45,4 +45,14 @@ class User extends Authenticatable
     {
         return $this->hasMany(Question::class);
     }
+
+    public function likedquestions()
+    {
+        return $this->morphedByMany(Question::class,'like','likes','user_id','like_id');
+    }
+
+    public function likedreplies()
+    {
+        return $this->morphedByMany(Reply::class,'like','likes','user_id','like_id');
+    }
 }

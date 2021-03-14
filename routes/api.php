@@ -17,3 +17,11 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::apiResource('questions',\App\Http\Controllers\QuestionController::class);
+Route::apiResource('categories',\App\Http\Controllers\CategoryController::class);
+
+Route::get('/users',function(){
+   return new \App\Http\Resources\UserCollection(\App\Models\User::with(['questions','likedquestions'])->get());
+//    return new \App\Http\Resources\QuestionCollection(\App\Models\Question::with('likedusers')->get());
+});
