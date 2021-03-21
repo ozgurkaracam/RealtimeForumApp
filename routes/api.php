@@ -18,10 +18,13 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::apiResource('questions',\App\Http\Controllers\QuestionController::class);
-Route::apiResource('categories',\App\Http\Controllers\CategoryController::class);
 
-Route::get('/users',function(){
-   return new \App\Http\Resources\UserCollection(\App\Models\User::with(['questions','likedquestions'])->get());
-//    return new \App\Http\Resources\QuestionCollection(\App\Models\Question::with('likedusers')->get());
+Route::middleware('auth:sanctum')->group(function(){
+    Route::apiResource('questions',\App\Http\Controllers\QuestionController::class);
+    Route::apiResource('categories',\App\Http\Controllers\CategoryController::class);
+    Route::post('logout',[\App\Http\Controllers\AuthController::class,'logout']);
 });
+
+Route::post('/authenticate',[\App\Http\Controllers\AuthController::class,'login'])->name('auth');
+Route::post('/register',[\App\Http\Controllers\AuthController::class,'register']);
+

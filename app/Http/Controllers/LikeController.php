@@ -2,15 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\QuestionCollection;
-use App\Http\Resources\QuestionResource;
-use App\Http\Resources\UserResource;
-use App\Models\Question;
-use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
-class QuestionController extends Controller
+class LikeController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,7 +13,7 @@ class QuestionController extends Controller
      */
     public function index()
     {
-        return new QuestionCollection(Question::withCount(['replies','likedusers'])->get());
+        
     }
 
     /**
@@ -30,12 +24,7 @@ class QuestionController extends Controller
      */
     public function store(Request $request)
     {
-        try{
-            $question=Auth::user()->questions()->create($request->all());
-            return new QuestionResource($question);
-        }catch (\Exception $e){
-            return response(['message'=>$e->getMessage()]);
-        }
+        //
     }
 
     /**
@@ -46,8 +35,7 @@ class QuestionController extends Controller
      */
     public function show($id)
     {
-        $question=Question::where('slug',$id)->withCount('replies')->with(['replies','likedusers'])->first();
-        return new QuestionResource($question);
+        //
     }
 
     /**
@@ -57,10 +45,9 @@ class QuestionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Question $question)
+    public function update(Request $request, $id)
     {
-        $question->update($request->all());
-        return new QuestionResource($question);
+        //
     }
 
     /**
