@@ -45,7 +45,7 @@ class ReplyController extends Controller
      */
     public function show($id)
     {
-        return new ReplyResource(Reply::where('id',$id)->with(['likedusers','question'])->first());
+        return new ReplyResource(Reply::where('id',$id)->with(['likedusers','question'])->firstOrFail());
     }
 
     /**
@@ -68,12 +68,14 @@ class ReplyController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $reply=Reply::find($id);
+        $reply->delete();
+        return response()->json(['status_code'=>400,'message'=>'successfully!']);
     }
 
     public function likereply($id)
     {
-        Auth::user()->likedreplies()->toggle(Reply::find($id));
+        Auth::user()->likedreplies()->toggle(Reply::findOrFail($id));
         return new ReplyResource(Reply::find($id));
     }
 }
