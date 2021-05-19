@@ -13,11 +13,11 @@ class AuthController extends Controller
     {
         try{
             $request->validate([
-                'email'=>'required|email',
+                'email'=>'required',
                 'password'=>'required'
             ]);
             $credential=request(['email','password']);
-            if(!Auth::attempt($credential)){
+            if(!Auth::guard('web')->attempt($credential)){
                 return response()->json([
                     'status_code'=>500,
                     'message'=>'No Authentication'
@@ -35,7 +35,7 @@ class AuthController extends Controller
             return response()->json([
                 'status_code'=>500,
                 'message'=>'No Auth',
-                'error'=>$e
+                'error'=>$e->getMessage()
             ]);
         }
     }

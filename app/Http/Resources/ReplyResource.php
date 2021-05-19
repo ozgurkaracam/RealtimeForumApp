@@ -2,7 +2,9 @@
 
 namespace App\Http\Resources;
 
+use App\Models\Reply;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\Auth;
 
 class ReplyResource extends JsonResource
 {
@@ -15,16 +17,17 @@ class ReplyResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'type'=>'user',
+            'type'=>'reply',
             'links'=>[
-                'self'=>  '/api/replies/'.$this->id
+                'self'=>  url('/api/replies/'.$this->id)
             ],
             'id'=>$this->id,
             'attributes'=>[
                 'body'=>$this->body,
             ],
             'relationships'=>[
-                'questions'=>new QuestionCollection($this->whenLoaded('questions')),
+                'islike'=>$this->likedusers()->exists(Auth::user()->id),
+                'question'=>new QuestionResource($this->whenLoaded('question')),
                 'user'=>new UserResource($this->user),
                 'likedusers'=>new UserCollection($this->whenLoaded('likedusers'))
             ]

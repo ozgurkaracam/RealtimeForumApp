@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\Auth;
 
 class QuestionResource extends JsonResource
 {
@@ -27,13 +28,14 @@ class QuestionResource extends JsonResource
             ],
             'counts'=>[
               'replies_count'=>$this->when(!is_null($this->replies_count), $this->replies_count),
-                'likedusers_count'=>$this->when(!is_null($this->likedusers_count), $this->likedusers_count),
+                'likedusers_count'=>$this->when($this->likedusers()->count()>0,$this->likedusers()->count()),
             ],
             'relationships'=>[
                 'author'=>new UserResource($this->user),
                 'category'=>new CategoryResource($this->category),
                 'replies'=>new ReplyCollection($this->whenLoaded('replies')),
                 'likedusers'=>new UserCollection($this->whenLoaded('likedusers')),
+                'islike'=>$this->likedusers()->exists(Auth::user()->id)
             ]
         ];
     }

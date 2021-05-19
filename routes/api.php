@@ -22,7 +22,10 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::middleware('auth:sanctum')->group(function(){
     Route::apiResource('questions',\App\Http\Controllers\QuestionController::class);
     Route::apiResource('categories',\App\Http\Controllers\CategoryController::class);
+    Route::apiResource('replies',\App\Http\Controllers\ReplyController::class);
     Route::post('logout',[\App\Http\Controllers\AuthController::class,'logout']);
+    Route::post('replies/{id}/like',[\App\Http\Controllers\ReplyController::class,'likereply'])->name('likereply');
+    Route::post('questions/{id}/like',[\App\Http\Controllers\QuestionController::class,'likequestion'])->name('likequestion');
 });
 
 Route::post('/authenticate',[\App\Http\Controllers\AuthController::class,'login'])->name('auth');

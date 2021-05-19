@@ -46,7 +46,7 @@ class QuestionController extends Controller
      */
     public function show($id)
     {
-        $question=Question::where('slug',$id)->withCount('replies')->with(['replies','likedusers'])->first();
+        $question=Question::where('slug',$id)->withCount('replies')->with(['replies','likedusers','user','category'])->first();
         return new QuestionResource($question);
     }
 
@@ -72,5 +72,14 @@ class QuestionController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function likequestion($id)
+    {
+//        dd('ss');
+        $question=Question::find($id);
+//        return response()->json(['Merhaba'=>$question]);
+        Auth::user()->likedquestions()->toggle($question);
+        return new QuestionResource($question);
     }
 }

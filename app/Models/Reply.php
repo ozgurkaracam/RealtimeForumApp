@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Reply extends Model
 {
     use HasFactory;
+    protected $fillable=['body','question_id','user_id'];
     public function likedusers()
     {
         return $this->morphToMany(User::class,'like','likes','like_id','user_id');
@@ -17,6 +18,11 @@ class Reply extends Model
     {
         return $this->belongsTo(User::class);
 
+    }
+
+    public function question()
+    {
+        return $this->belongsTo(Question::class);
     }
 
 }
