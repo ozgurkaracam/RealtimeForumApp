@@ -47,11 +47,10 @@ export default {
     },
     methods:{
         login(){
-            axios.post('/api/authenticate',{
+            this.$store.dispatch('login',{
                 'email':this.email,
                 'password':this.password
             })
-            .then(res=>console.log(res));
         }
     }
 }
