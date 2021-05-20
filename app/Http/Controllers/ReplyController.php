@@ -76,6 +76,6 @@ class ReplyController extends Controller
     public function likereply($id)
     {
         Auth::user()->likedreplies()->toggle(Reply::findOrFail($id));
-        return new ReplyResource(Reply::find($id));
+        return new ReplyResource(Reply::where('id',$id)->with(['likedusers','question'])->firstOrFail());
     }
 }
