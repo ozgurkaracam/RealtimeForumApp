@@ -26,6 +26,9 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::post('logout',[\App\Http\Controllers\AuthController::class,'logout']);
     Route::post('replies/{id}/like',[\App\Http\Controllers\ReplyController::class,'likereply'])->name('likereply');
     Route::post('questions/{id}/like',[\App\Http\Controllers\QuestionController::class,'likequestion'])->name('likequestion');
+    Route::get('user',function(){
+       return new \App\Http\Resources\UserResource(\Illuminate\Support\Facades\Auth::user());
+    });
 });
 
 Route::post('/authenticate',[\App\Http\Controllers\AuthController::class,'login'])->name('auth');

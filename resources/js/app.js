@@ -4,6 +4,7 @@ import Vue from 'vue'
 import vuetify from "./plugins/vuetify";
 import router from "./plugins/router";
 import store from "./store/store";
+import axios from "axios";
 const app = new Vue({
     el: '#app',
     render: h => h(App),
@@ -11,3 +12,8 @@ const app = new Vue({
     router,
     store
 });
+
+if(localStorage.getItem('token')){
+    axios.defaults.headers.common['Authorization']=localStorage.getItem('token')
+    store.dispatch('getUser')
+}

@@ -1,5 +1,5 @@
 <template>
-    <v-content>
+    <v-main>
         <v-container fluid fill-height>
             <v-layout align-center justify-center>
                 <v-flex xs12 sm8 md4>
@@ -8,6 +8,8 @@
                             <v-toolbar-title>Login Form</v-toolbar-title>
                         </v-toolbar>
                         <v-card-text>
+                            <v-alert type="success" v-if="status=='success'">Login Successfuly!</v-alert>
+                            <v-alert type="error" v-if="status=='error'">Your e-mail or password incorrect!</v-alert>
                             <v-form>
                                 <v-text-field
                                     name="login"
@@ -32,18 +34,20 @@
                 </v-flex>
             </v-layout>
         </v-container>
-    </v-content>
+    </v-main>
 </template>
 
 <script>
-
-import axios from 'axios'
+import {mapGetters} from 'vuex'
 export default {
     data(){
         return{
             email:'',
             password:''
         }
+    },
+    computed:{
+        ...mapGetters(['status'])
     },
     methods:{
         login(){

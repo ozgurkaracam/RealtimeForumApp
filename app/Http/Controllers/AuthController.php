@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Http;
 
 class AuthController extends Controller
 {
@@ -21,7 +23,7 @@ class AuthController extends Controller
                 return response()->json([
                     'status_code'=>500,
                     'message'=>'No Authentication'
-                ]);
+                ],401);
             }
 
             $user=Auth::user();
@@ -30,13 +32,14 @@ class AuthController extends Controller
                 'status_code' => 200,
                 'access_token' => $tokenResult,
                 'token_type' => 'Bearer',
+                'data'=>new UserResource(Auth::user())
             ]);
         }catch ( \Exception $e){
             return response()->json([
                 'status_code'=>500,
                 'message'=>'No Auth',
                 'error'=>$e->getMessage()
-            ]);
+            ],404);
         }
     }
 
