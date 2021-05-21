@@ -28,7 +28,9 @@
                         </v-card-text>
                         <v-card-actions>
                             <v-spacer></v-spacer>
+                            <router-link to="/signup" tag="v-btn" color="secondary"> Signup</router-link>
                             <v-btn color="primary" @click="login">Login</v-btn>
+<!--                            <v-btn color="secondary" @click="login">Signup</v-btn>-->
                         </v-card-actions>
                     </v-card>
                 </v-flex>

@@ -4,20 +4,12 @@
             <v-toolbar-title>Realtime Forum App</v-toolbar-title>
             <v-spacer></v-spacer>
             <v-toolbar-items class="hidden-sm-and-down">
-                <router-link to="/forum" tag="v-btn" class="blue-grey lighten-5">
-                    Forum
+                <router-link v-for="link in links" :key="link.title" :to="link.to" tag="v-btn" v-if="link.show" class="blue-grey lighten-5">
+                    {{ link.title }}
                 </router-link>
-                <v-btn class="blue-grey lighten-5">Ask Question</v-btn>
-                <v-btn class="blue-grey lighten-5">Category</v-btn>
-                <router-link to="/login" tag="v-btn" v-if="user.attributes" class="blue-grey lighten-5">
-                    {{ user.attributes.name }}
-                </router-link>
-                <v-btn v-if="user.attributes" @click="logout">
+                <v-btn v-if="loggedIn" @click="logout">
                     Logout
                 </v-btn>
-                <router-link to="/login" tag="v-btn" v-else class="blue-grey lighten-5">
-                    Login
-                </router-link>
             </v-toolbar-items>
         </v-toolbar>
     </div>
@@ -28,13 +20,27 @@ import {mapGetters} from 'vuex'
 
 export default {
     computed: {
-        ...mapGetters(['user'])
+        ...mapGetters(['user','loggedIn']),
+        links(){
+            return [
+                {'title':'Forum','to':'/forum','show':true},
+                {'title':'Ask Question','to':'/askquestion','show':this.loggedIn},
+                {'title':'Category','to':'/category','show':this.loggedIn},
+                {'title':'Login','to':'/login','show':!this.loggedIn},
+            ]
+        }
     },
     methods:{
         logout(){
             this.$store.dispatch('logout')
         }
+    },
+    data(){
+        return{
+
+        }
     }
+
 }
 </script>
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\SignupRequest;
 use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -52,7 +53,7 @@ class AuthController extends Controller
         ]);
     }
 
-    public function register(Request  $request)
+    public function register(SignupRequest $request)
     {
         $credentials=request(['name','email','password']);
         $credentials['password']=Hash::make($request->get('password'));
