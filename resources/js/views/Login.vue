@@ -49,7 +49,7 @@ export default {
         }
     },
     computed:{
-        ...mapGetters(['status'])
+        ...mapGetters(['status','loggedIn'])
     },
     methods:{
         login(){
@@ -58,7 +58,12 @@ export default {
                 'password':this.password
             })
         }
-    }
+    },
+    // beforeMount() {
+    //     console.log(this.loggedIn)
+    //     if(this.loggedIn)
+    //         this.$route.push('/')
+    // }
 }
 </script>
 

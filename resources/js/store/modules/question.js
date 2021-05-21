@@ -2,20 +2,26 @@ import axios from "axios";
 
 export const question = {
     state: {
+        questions:[]
     },
     mutations: {
-        foo(){
-            alert('bar')
+        setAllQuestions(state,data){
+            state.questions=data
         }
     },
     actions: {
 
-        getQuestions(){
+        getAllQuestions({commit}){
             axios.get('/api/questions')
-                .then(res=>console.log(res))
+                .then(res=>{
+                    commit('setAllQuestions',res.data.data)
+                })
         }
     },
     getters: {
+        questions(state){
+            return state.questions
+        }
     }
 }
 

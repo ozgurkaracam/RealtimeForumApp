@@ -1,7 +1,7 @@
 <template>
     <div>
         <v-toolbar class="blue-grey lighten-5">
-            <v-toolbar-title>Realtime Forum App</v-toolbar-title>
+            <router-link tag="v-toolbar-title" to="/">Realtime Forum App</router-link>
             <v-spacer></v-spacer>
             <v-toolbar-items class="hidden-sm-and-down">
                 <router-link v-for="link in links" :key="link.title" :to="link.to" tag="v-btn" v-if="link.show" class="blue-grey lighten-5">
@@ -45,5 +45,7 @@ export default {
 </script>
 
 <style scoped>
-
+    .v-toolbar__title{
+        cursor:pointer;
+    }
 </style>

@@ -24,7 +24,8 @@ class QuestionResource extends JsonResource
             'attributes'=>[
                 'title'=>$this->title,
                 'body'=>$this->body,
-                'slug'=>$this->slug
+                'slug'=>$this->slug,
+                'created_at'=>$this->created_at->diffForHumans()
             ],
             'counts'=>[
               'replies_count'=>$this->when(!is_null($this->replies_count), $this->replies_count),

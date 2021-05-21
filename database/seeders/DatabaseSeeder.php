@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Category;
 use App\Models\Question;
 use App\Models\Reply;
 use App\Models\User;
@@ -17,12 +18,22 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
-        User::factory()->count(5)
-            ->has(Question::factory()->count(rand(3,15))
-                ->has(Reply::factory()->count(rand(3,15))
-                    )
-                )
-            ->create();
+
+        User::factory()->count(8)->create();
+        Category::factory()->count(rand(3, 8))->create();
+        for ($i = 0; $i < 50; $i++) {
+            Question::factory([
+                'category_id' => Category::inRandomOrder()->first(),
+                'user_id' => User::inRandomOrder()->first()
+            ])->create();
+        }
+        for($i=0;$i<1000;$i++){
+            Reply::factory([
+                'question_id' => Question::inRandomOrder()->first(),
+                'user_id' => User::inRandomOrder()->first()
+            ])->create();
+        }
+
+
     }
 }

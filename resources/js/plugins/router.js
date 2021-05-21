@@ -4,15 +4,23 @@ import Forum from "../views/Forum";
 import Askquestion from "../views/Askquestion";
 import Login from "../views/Login";
 import Signup from "../views/Signup";
+import store from "../store/store";
 
 Vue.use(VueRouter)
+
+const islogin= (to,from,next)=>{
+    console.log(store.getters.loggedIn)
+    if(store.getters.loggedIn)
+        next('/')
+    next()
+}
 
 const routes=[
     {path:'/', component: Forum},
     {path:'/forum',component:Forum},
     {path:'/askquestion', component: Askquestion},
-    {path:'/login',component: Login},
-    {path:'/signup',component: Signup}
+    {path:'/login',component: Login, beforeEnter:islogin},
+    {path:'/signup',component: Signup, beforeEnter:islogin}
 ]
 
 const router = new VueRouter({
