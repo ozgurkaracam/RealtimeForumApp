@@ -20,10 +20,17 @@ import {mapGetters} from "vuex";
 export default {
     components: {Categories, Question},
     computed:{
-      ...mapGetters(['questions'])
+      ...mapGetters(['questions']),
     },
     mounted() {
-        this.$store.dispatch('getAllQuestions')
+        if(this.$route.name==='categoryquestions'){
+            console.log(this.$route.params.slug)
+            this.$store.dispatch('getCategoryQuestions',this.$route.params.slug)
+        }
+        else{
+            this.$store.dispatch('getAllQuestions')
+        }
+        console.log(this.$route.name)
     }
 }
 </script>

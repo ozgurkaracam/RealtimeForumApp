@@ -3,7 +3,7 @@
         <v-card-title>Categories</v-card-title>
         <v-list flat>
             <v-list-item-group>
-                <v-list-item v-for="category,index in categories" :key="index">
+                <v-list-item v-for="category,index in categories" :key="index" :to="{name:'categoryquestions',params:{'slug':category.attributes.slug}}">
                     <v-list-item-content>
                         {{ category.attributes.body }}
                     </v-list-item-content>

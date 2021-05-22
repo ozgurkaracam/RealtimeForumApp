@@ -24,11 +24,12 @@ class ReplyResource extends JsonResource
             'id'=>$this->id,
             'attributes'=>[
                 'body'=>$this->body,
+                'created_at'=>$this->created_at->diffForHumans()
             ],
             'relationships'=>[
                 'islike'=>$this->likedusers()->exists(Auth::user()->id),
                 'question'=>new QuestionResource($this->whenLoaded('question')),
-                'user'=>new UserResource($this->user),
+                'author'=>new UserResource($this->user),
                 'likedusers'=>new UserCollection($this->whenLoaded('likedusers'))
             ]
         ];

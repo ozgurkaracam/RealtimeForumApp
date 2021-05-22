@@ -12,10 +12,10 @@
         <v-card-text>{{data.attributes.body}}
         </v-card-text>
         <v-card-actions>
-
-            <v-btn text color="deep-red darken">{{data.counts.replies_count}} Replies</v-btn>
+            <v-btn text color="deep-red darken" v-if="$route.name!='questiondetails'" :to="{name:'questiondetails',params:{'slug':data.attributes.slug}}">{{data.counts.replies_count}} Replies</v-btn>
             <v-spacer></v-spacer>
-            <v-btn text color="deep-orange">See Details</v-btn>
+
+            <v-btn color="deep-orange" text :to="{name:'questiondetails',params:{'slug':data.attributes.slug}}" v-if="$route.name!='questiondetails'">SEE DETAILS</v-btn>
         </v-card-actions>
     </v-card>
 </template>
