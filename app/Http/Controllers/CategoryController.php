@@ -40,7 +40,7 @@ class CategoryController extends Controller
      */
     public function show($id)
     {
-        $category=Category::where('slug',$id)->with('questions')->first();
+        $category=Category::where('slug',$id)->with('questions')->firstOrFail();
         return new CategoryResource($category);
     }
 

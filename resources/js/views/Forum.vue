@@ -3,6 +3,9 @@
         <v-container fill-height align-start>
             <v-row>
                 <v-col md="9">
+                    <div>
+                        <h1>{{ $route.params.slug ? questions[0].relationships.category.attributes.body+' ' : '' }}Questions</h1>
+                    </div>
                     <Question v-for="question,index in questions" :key="index" :data="question" />
                 </v-col>
                 <v-col md="3">

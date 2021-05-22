@@ -24,5 +24,9 @@ class Reply extends Model
     {
         return $this->belongsTo(Question::class);
     }
+    public function scopeOrdered($query)
+    {
+        return $query->orderBy('created_at', 'DESC')->get();
+    }
 
 }

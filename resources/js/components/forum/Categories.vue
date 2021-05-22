@@ -22,7 +22,6 @@ export default {
     },
     mounted() {
         this.$store.dispatch('getAllCategories')
-        // console.log(this.categories)
     }
 }
 </script>

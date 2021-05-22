@@ -46,7 +46,9 @@ class QuestionController extends Controller
      */
     public function show($id)
     {
-        $question=Question::where('slug',$id)->withCount('replies')->with(['replies','likedusers','user','category'])->first();
+        $question=Question::where('slug',$id)->withCount('replies')->with(['replies'=>function($query){
+            $query->orderBy('id','DESC');
+        },'likedusers','user','category'])->first();
         return new QuestionResource($question);
     }
 

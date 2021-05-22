@@ -7,7 +7,7 @@
                 </v-col>
             </v-row>
             <v-divider class="mb-10"></v-divider>
-
+            <SendReply />
             <Answers />
         </v-container>
     </v-main>
@@ -17,9 +17,10 @@
 import {mapGetters} from "vuex";
 import Question from "../components/forum/Question";
 import Answers from "../components/QuestionDetails/Answers";
+import SendReply from "../components/QuestionDetails/SendReply";
 
 export default {
-    components: {Answers, Question},
+    components: {SendReply, Answers, Question},
     computed: {
         ...mapGetters(['question'])
     },

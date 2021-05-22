@@ -23,7 +23,8 @@ const routes=[
     {path:'/login',component: Login, beforeEnter:islogin},
     {path:'/signup',component: Signup, beforeEnter:islogin},
     {path:'/questions/:slug',component: QuestionDetails,name:'questiondetails'},
-    {path:'/forum/:slug',component: Forum,name:'categoryquestions'}
+    {path:'/forum/:slug',component: Forum,name:'categoryquestions'},
+    {path:'/:i', component: Forum}
 ]
 
 const router = new VueRouter({
