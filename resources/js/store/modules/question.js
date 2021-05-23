@@ -19,6 +19,12 @@ export const question = {
         },
         pushReply(state,data){
             state.replies.unshift(data)
+        },
+        foo(){
+            alert('question')
+        },
+        pushQuestion(state,data){
+            state.questions.unsift(data)
         }
     },
     actions: {
@@ -63,7 +69,15 @@ export const question = {
 
         },
         sendQuestion({commit},data){
-
+            axios.post('/api/questions',data)
+                .then(res=>{
+                    Vue.swal('Success!','Your Question Sended','success')
+                    console.log(res.data)
+                    router.push({'name':'home'})
+                })
+                .catch(err=>{
+                    Vue.swal('Error!','Some Problems!','error')
+                })
         }
     },
     getters: {

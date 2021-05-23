@@ -24,6 +24,9 @@ class CategoryResource extends JsonResource
                 'body'=>$this->name,
                 'slug'=>$this->slug
             ],
+            'count'=>[
+              'question_count'=>$this->questions()->count()
+            ],
             'relationships'=>[
                 'questions'=>new QuestionCollection($this->whenLoaded('questions')),
             ]

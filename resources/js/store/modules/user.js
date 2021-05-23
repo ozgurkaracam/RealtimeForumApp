@@ -12,6 +12,8 @@ export const user = {
         setUser(state, data) {
             if (data != {})
                 state.loggedIn = true
+            else
+                state.loggedIn=false
             state.user = data.data
         },
         setToken(state, data) {

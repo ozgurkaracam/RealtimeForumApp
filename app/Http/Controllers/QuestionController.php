@@ -19,7 +19,7 @@ class QuestionController extends Controller
      */
     public function index()
     {
-        return new QuestionCollection(Question::withCount(['replies','likedusers'])->get());
+        return new QuestionCollection(Question::withCount(['replies','likedusers'])->orderBy('id','DESC')->get());
     }
 
     /**
@@ -30,12 +30,8 @@ class QuestionController extends Controller
      */
     public function store(Request $request)
     {
-        try{
             $question=Auth::user()->questions()->create($request->all());
             return new QuestionResource($question);
-        }catch (\Exception $e){
-            return response(['message'=>$e->getMessage()]);
-        }
     }
 
     /**

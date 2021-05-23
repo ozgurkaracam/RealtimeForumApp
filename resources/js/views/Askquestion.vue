@@ -7,8 +7,6 @@
                 <v-col>
                     <v-select
                         :items="cats"
-                        :item-text="text"
-                        :item-value="value"
                         v-model="category"
                         label="Select Category"
                         dense
@@ -27,7 +25,7 @@
             </v-row>
             <v-row>
                 <v-col class="text-right">
-                    <v-btn color="red" class="white--text">Ask Question</v-btn>
+                    <v-btn color="red" class="white--text" @click="sendQuestion">Ask Question</v-btn>
                 </v-col>
             </v-row>
         </v-container>
@@ -48,16 +46,23 @@ export default {
             titleRules:[
                 v => !!v || 'Title is required',
                 v => (v && v.length >= 10 ) || 'Title must be less than 10 characters',
-            ]
+            ],
+            title:'',
+            category:null
+
         }
     },
     methods:{
         sendQuestion(){
-
+            this.$store.dispatch('sendQuestion',{
+                category_id:this.category,
+                body:this.body,
+                title:this.title
+            })
         }
     },
     computed:{
-        ...mapGetters(['categories']),
+        ...mapGetters(['categories','question']),
         cats(){
             var arr=[];
             this.categories.forEach(x=>{
@@ -68,11 +73,17 @@ export default {
             })
             return arr
         },
-        category(){
-            return this.cats[0]
-        }
+        // category:{
+        //     get:function(){
+        //         return this.cats[0]
+        //     },
+        //     set:function (value){
+        //         this.cats[0]=this.cats[value-1]
+        //     }
+        // }
     },
     mounted() {
+        this.category=this.cats[0]
         this.$store.dispatch('getAllCategories')
     }
 }

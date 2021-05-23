@@ -6,10 +6,10 @@
     >
         <v-card-title>{{data.attributes.title}}</v-card-title>
         <v-card-subtitle class="justify-space-between">
-            <v-span>{{data.attributes.created_at}} By {{ data.relationships.author.attributes.name }}</v-span>
-            <v-span class="red--text darken-1">{{data.relationships.category.attributes.body}}</v-span>
+            <span>{{data.attributes.created_at}} By {{ data.relationships.author.attributes.name }}</span>
+            <span class="red--text darken-1">{{data.relationships.category.attributes.body}}</span>
         </v-card-subtitle>
-        <v-card-text>{{data.attributes.body}}
+        <v-card-text v-html="data.attributes.body">
         </v-card-text>
         <v-card-actions>
             <v-btn text color="deep-red darken" v-if="$route.name!='questiondetails'" :to="{name:'questiondetails',params:{'slug':data.attributes.slug}}">{{data.counts.replies_count}} Replies</v-btn>

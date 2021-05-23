@@ -5,7 +5,7 @@
             <v-list-item-group>
                 <v-list-item v-for="category,index in categories" :key="index" :to="{name:'categoryquestions',params:{'slug':category.attributes.slug}}">
                     <v-list-item-content>
-                        {{ category.attributes.body }}
+                        {{ category.attributes.body }} ({{category.count.question_count }} Questions)
                     </v-list-item-content>
                 </v-list-item>
             </v-list-item-group>

@@ -6,6 +6,8 @@ import Login from "../views/Login";
 import Signup from "../views/Signup";
 import store from "../store/store";
 import QuestionDetails from "../views/QuestionDetails";
+import Categories from "../components/forum/Categories";
+import Category from "../views/Category";
 
 Vue.use(VueRouter)
 
@@ -24,6 +26,7 @@ const routes=[
     {path:'/signup',component: Signup, beforeEnter:islogin},
     {path:'/questions/:slug',component: QuestionDetails,name:'questiondetails'},
     {path:'/forum/:slug',component: Forum,name:'categoryquestions'},
+    {path:'/category',component: Category,name:'category'},
     {path:'/:i', component: Forum}
 ]
 
