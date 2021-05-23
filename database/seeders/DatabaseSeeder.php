@@ -33,6 +33,12 @@ class DatabaseSeeder extends Seeder
                 'user_id' => User::inRandomOrder()->first()
             ])->create();
         }
+        foreach(Question::all() as $question){
+            $question->likedusers()->attach(User::inRandomOrder()->limit(rand(0,8))->get());
+        }
+        foreach(Reply::all() as $reply){
+            $reply->likedusers()->attach(User::inRandomOrder()->limit(rand(0,8))->get());
+        }
 
 
     }

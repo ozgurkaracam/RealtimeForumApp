@@ -15,7 +15,7 @@
             <v-btn text color="deep-red darken" v-if="$route.name!='questiondetails'" :to="{name:'questiondetails',params:{'slug':data.attributes.slug}}">{{data.counts.replies_count}} Replies</v-btn>
             <v-spacer></v-spacer>
 
-            <v-btn color="deep-orange" text :to="{name:'questiondetails',params:{'slug':data.attributes.slug}}" v-if="$route.name!='questiondetails'">SEE DETAILS</v-btn>
+            <v-btn color="pink" text :to="{name:'questiondetails',params:{'slug':data.attributes.slug}}">{{data.counts.likedusers_count}} LIKES</v-btn>
         </v-card-actions>
     </v-card>
 </template>

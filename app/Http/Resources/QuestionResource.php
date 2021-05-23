@@ -29,7 +29,7 @@ class QuestionResource extends JsonResource
             ],
             'counts'=>[
               'replies_count'=>$this->when(!is_null($this->replies_count), $this->replies_count),
-                'likedusers_count'=>$this->when($this->likedusers()->count()>0,$this->likedusers()->count()),
+                'likedusers_count'=>$this->likedusers()->count(),
             ],
             'relationships'=>[
                 'author'=>new UserResource($this->user),

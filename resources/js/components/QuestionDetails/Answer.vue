@@ -11,7 +11,7 @@
         <v-card-text v-html="data.attributes.body">
         </v-card-text>
         <v-card-actions>
-            <v-btn text color="pink">Like</v-btn>
+            <v-btn text color="pink">{{data.counts.likedusers_count}} Like</v-btn>
             <v-spacer></v-spacer>
         </v-card-actions>
     </v-card>

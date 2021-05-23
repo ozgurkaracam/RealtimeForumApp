@@ -31,6 +31,9 @@ class ReplyResource extends JsonResource
                 'question'=>new QuestionResource($this->whenLoaded('question')),
                 'author'=>new UserResource($this->user),
                 'likedusers'=>new UserCollection($this->whenLoaded('likedusers'))
+            ],
+            'counts'=>[
+                'likedusers_count'=>$this->likedusers()->count()
             ]
         ];
     }
