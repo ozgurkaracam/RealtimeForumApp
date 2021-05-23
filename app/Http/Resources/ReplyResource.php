@@ -27,7 +27,7 @@ class ReplyResource extends JsonResource
                 'created_at'=>$this->created_at->diffForHumans()
             ],
             'relationships'=>[
-                'islike'=>$this->likedusers()->exists(Auth::user()->id),
+                'islike'=>$this->likedusers()->where('user_id',Auth::user()->id)->exists(),
                 'question'=>new QuestionResource($this->whenLoaded('question')),
                 'author'=>new UserResource($this->user),
                 'likedusers'=>new UserCollection($this->whenLoaded('likedusers'))

@@ -78,6 +78,26 @@ export const question = {
                 .catch(err=>{
                     Vue.swal('Error!','Some Problems!','error')
                 })
+        },
+        toggleLike({commit},id){
+            return new Promise((resolve,reject)=>{
+                axios.post('/api/questions/'+id+'/like')
+                    .then(res=>{
+                        resolve(res.data.data)
+                    })
+            })
+        },
+        toggleReplyLike({commit},id){
+            // axios.post('/api/replies/'+id+'/like')
+            //     .then(res=>{
+            //         resolve('sss')
+            //     })
+            return new Promise((resolve,reject)=>{
+                axios.post('/api/replies/'+id+'/like')
+                    .then(res=>{
+                        resolve(res.data.data)
+                    })
+            })
         }
     },
     getters: {

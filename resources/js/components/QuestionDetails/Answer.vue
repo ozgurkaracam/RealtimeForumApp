@@ -11,6 +11,11 @@
         <v-card-text v-html="data.attributes.body">
         </v-card-text>
         <v-card-actions>
+            <v-btn text color="pink">
+                <v-icon @click="toggleLike(data)">
+                    mdi-heart{{ !data.relationships.islike ? '-outline' : ''}}
+                </v-icon>
+            </v-btn>
             <v-btn text color="pink">{{data.counts.likedusers_count}} Like</v-btn>
             <v-spacer></v-spacer>
         </v-card-actions>
@@ -19,7 +24,15 @@
 
 <script>
 export default {
-    props:['data']
+    props:['data'],
+    methods:{
+        toggleLike(d) {
+            this.$store.dispatch('toggleReplyLike',d.id).then(res=>{
+                console.log(res)
+                this.data=res
+            })
+        }
+    }
 }
 </script>
 

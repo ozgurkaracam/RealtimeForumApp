@@ -36,7 +36,7 @@ class QuestionResource extends JsonResource
                 'category'=>new CategoryResource($this->category),
                 'replies'=>new ReplyCollection($this->whenLoaded('replies')),
                 'likedusers'=>new UserCollection($this->whenLoaded('likedusers')),
-                'islike'=>$this->likedusers()->exists(Auth::user()->id)
+                'islike'=>$this->likedusers()->where('user_id',Auth::user()->id)->exists()
             ]
         ];
     }
