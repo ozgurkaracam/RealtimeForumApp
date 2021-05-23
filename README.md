@@ -6,7 +6,7 @@
 - Vue 2 (vuetify,vuex)
 
 ------------
-*Proje durumu: Question,reply,likes ve diğer endpointler sorunsuz olarak çalışıyor. Api tamam. Authentication sorunsuz. Question,reply create ve categories'in bütün crud fonksiyonları çalışıyor. Question ve reply like işlemleri sorunsuz. *
+_Proje durumu: Question,reply,likes ve diğer endpointler sorunsuz olarak çalışıyor. Api tamam. Authentication sorunsuz. Question,reply create ve categories'in bütün crud fonksiyonları çalışıyor. Question ve reply like işlemleri sorunsuz._
 
 ------------
 
