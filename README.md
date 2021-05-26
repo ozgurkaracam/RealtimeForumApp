@@ -6,13 +6,13 @@
 - Vue 2 (vuetify,vuex)
 
 ------------
-_Proje durumu: Question,reply,likes ve diğer endpointler sorunsuz olarak çalışıyor. Api tamam. Authentication sorunsuz. Question,reply create ve categories'in bütün crud fonksiyonları çalışıyor. Question ve reply like işlemleri sorunsuz._
+_Proje durumu: Question,reply,likes ve diğer endpointler sorunsuz olarak çalışıyor. Api tamam(Policies dahil.) Loading barlar, question update'de kategori seçimi ve pusher bekliyor._
 
 ------------
 
 ##### Yapılacaklar (Todo List)
 ~~1. Laravel'de gerekli policylerle birlikte authorization yapılacak.~~
-2. Question ve Reply componentlerine authorization'a göre delete ve update işlevleri eklenecek (Question eklendi, reply kaldı)
+~~2. Question ve Reply componentlerine authorization'a göre delete ve update işlevleri eklenecek (Question eklendi, reply kaldı)~~
 3. localstorage ile ilgili ufak bir problem var, sayfa yenilendiğinde token silindiyse bug'a düşüyor.
 4. Pusher entegrasyonu yapılıp question,reply crud'lar gerçek zamanlı olacak.
 
