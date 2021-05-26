@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\QuestionResource;
 use App\Http\Resources\ReplyCollection;
 use App\Http\Resources\ReplyResource;
 use App\Models\Question;
@@ -57,7 +58,10 @@ class ReplyController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->authorize('update',Reply::findOrFail($id));
+        $reply=Reply::findOrFail($id);
+        $reply->update(['body'=>$request->body]);
+        return new ReplyResource($reply);
     }
 
     /**
@@ -68,9 +72,13 @@ class ReplyController extends Controller
      */
     public function destroy($id)
     {
-        $reply=Reply::find($id);
+        $reply=Reply::findOrFail($id);
+        $this->authorize('delete',$reply);
         $reply->delete();
-        return response()->json(['status_code'=>400,'message'=>'successfully!']);
+        $question=Question::where('slug',$reply->question->slug)->withCount('replies')->with(['replies'=>function($query){
+        $query->orderBy('id','DESC');
+        },'likedusers','user','category'])->first();
+        return new QuestionResource($question);
     }
 
     public function likereply($id)

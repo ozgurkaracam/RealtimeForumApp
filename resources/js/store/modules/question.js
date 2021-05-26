@@ -14,15 +14,13 @@ export const question = {
         },
         setQuestion(state, data) {
             state.question = data
+            state.replies=data.relationships.replies.data
         },
         setReplies(state, data) {
             state.replies = data
         },
         pushReply(state,data){
             state.replies.unshift(data)
-        },
-        foo(){
-            alert('question')
         },
         pushQuestion(state,data){
             state.questions.unsift(data)
@@ -50,7 +48,7 @@ export const question = {
             axios.get('/api/questions/' + data)
                 .then(res => {
                     commit('setQuestion', res.data.data)
-                    commit('setReplies', res.data.data.relationships.replies.data)
+
                 }).catch(err=>router.push({name:'home'}))
         },
         sendReply({commit,state},data){
@@ -114,6 +112,28 @@ export const question = {
             console.log(data)
             return new Promise((resolve,reject)=>{
                 axios.put('/api/questions/'+data.id,{
+                    title:data.title,
+                    body:data.body
+                }).then(res=>{
+                    resolve('success')
+                }).catch(err=>{
+                    reject('error')
+                })
+            })
+        },
+        deleteAnswer({commit},data){
+            console.log(data)
+            axios.delete('/api/replies/'+data.id)
+                .then(res=>{
+                    // commit('setQuestion',res.data.data)
+                    Vue.swal('Success','Success for deleting!','success')
+                    commit('setQuestion',res.data.data)
+                })
+        },
+        saveAnswer({},data){
+            console.log(data)
+            return new Promise((resolve,reject)=>{
+                axios.put('/api/replies/'+data.id,{
                     title:data.title,
                     body:data.body
                 }).then(res=>{

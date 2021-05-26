@@ -30,7 +30,8 @@ class ReplyResource extends JsonResource
                 'islike'=>$this->likedusers()->where('user_id',Auth::user()->id)->exists(),
                 'question'=>new QuestionResource($this->whenLoaded('question')),
                 'author'=>new UserResource($this->user),
-                'likedusers'=>new UserCollection($this->whenLoaded('likedusers'))
+                'likedusers'=>new UserCollection($this->whenLoaded('likedusers')),
+                'question_id'=>$this->question->id
             ],
             'counts'=>[
                 'likedusers_count'=>$this->likedusers()->count()
