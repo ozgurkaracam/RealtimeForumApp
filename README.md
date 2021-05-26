@@ -11,8 +11,8 @@ _Proje durumu: Question,reply,likes ve diğer endpointler sorunsuz olarak çalı
 ------------
 
 ##### Yapılacaklar (Todo List)
-1. Laravel'de gerekli policylerle birlikte authorization yapılacak.
-2. Question ve Reply componentlerine authorization'a göre delete ve update işlevleri eklenecek
+~~1. Laravel'de gerekli policylerle birlikte authorization yapılacak.~~
+2. Question ve Reply componentlerine authorization'a göre delete ve update işlevleri eklenecek (Question eklendi, reply kaldı)
 3. localstorage ile ilgili ufak bir problem var, sayfa yenilendiğinde token silindiyse bug'a düşüyor.
 4. Pusher entegrasyonu yapılıp question,reply crud'lar gerçek zamanlı olacak.
 

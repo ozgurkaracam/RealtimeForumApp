@@ -57,6 +57,7 @@ class QuestionController extends Controller
      */
     public function update(Request $request, Question $question)
     {
+        $this->authorize('delete',$question);
         $question->update($request->all());
         return new QuestionResource($question);
     }
@@ -69,7 +70,9 @@ class QuestionController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $this->authorize('delete',Question::findOrFail($id));
+        Question::findOrFail($id)->delete();
+        return new QuestionCollection(Question::all());
     }
 
     public function likequestion($id)

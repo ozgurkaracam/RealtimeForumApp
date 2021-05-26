@@ -1,6 +1,7 @@
 import axios from "axios";
 import router from "../../plugins/router";
 import Vue from 'vue'
+
 export const question = {
     state: {
         questions: [],
@@ -50,7 +51,7 @@ export const question = {
                 .then(res => {
                     commit('setQuestion', res.data.data)
                     commit('setReplies', res.data.data.relationships.replies.data)
-                })
+                }).catch(err=>router.push({name:'home'}))
         },
         sendReply({commit,state},data){
             axios.post('/api/replies',{
@@ -97,6 +98,29 @@ export const question = {
                     .then(res=>{
                         resolve(res.data.data)
                     })
+            })
+        },
+        deleteQuestion({commit},id){
+
+            axios.delete('/api/questions/'+id)
+                .then(res=>{
+                    commit('setAllQuestions',res.data.data)
+                    Vue.swal('Success','Success for deleting!','success')
+                    if(router.history.current.name=="questiondetails")
+                        router.push({name:'home'})
+                })
+        },
+        saveQuestion({},data){
+            console.log(data)
+            return new Promise((resolve,reject)=>{
+                axios.put('/api/questions/'+data.id,{
+                    title:data.title,
+                    body:data.body
+                }).then(res=>{
+                    resolve('success')
+                }).catch(err=>{
+                    reject('error')
+                })
             })
         }
     },
