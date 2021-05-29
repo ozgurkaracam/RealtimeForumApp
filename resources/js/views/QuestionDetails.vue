@@ -26,6 +26,14 @@ export default {
     },
     mounted() {
         this.$store.dispatch('getQuestion', this.$route.params.slug)
+
+    },
+    async created() {
+        await this.$store.dispatch('getQuestion', this.$route.params.slug)
+        window.Pusher.subscribe('send-reply-channel-'+this.question.id).bind('send-reply-event-'+this.question.id,(e)=>{
+            console.log(e)
+            this.$store.dispatch('getQuestion', this.$route.params.slug)
+        })
     }
 }
 </script>

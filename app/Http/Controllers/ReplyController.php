@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Events\LikeEvent;
+use App\Events\SendReply;
 use App\Http\Resources\QuestionResource;
 use App\Http\Resources\ReplyCollection;
 use App\Http\Resources\ReplyResource;
@@ -39,6 +40,7 @@ class ReplyController extends Controller
         ]);
         $user=$reply->question->user;
         $user->notify(new ReplyNotification($reply));
+        event(new SendReply($reply));
         return new ReplyResource($reply);
     }
 

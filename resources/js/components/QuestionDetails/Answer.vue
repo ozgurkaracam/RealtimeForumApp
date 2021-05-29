@@ -84,6 +84,11 @@ export default {
     },
     computed:{
         ...mapGetters(['user'])
+    },
+    created() {
+        window.Pusher.subscribe('reply-channel-like-'+this.data.id).bind('reply-like-event-'+this.data.id,(e)=>{
+            this.data.counts.likedusers_count=e.like.counts.likedusers_count
+        })
     }
 }
 </script>

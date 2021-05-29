@@ -44,8 +44,8 @@ export const question = {
                     commit('setAllQuestions', res.data.data)
                 }).catch(err => console.log(err.response))
         },
-        getQuestion({commit}, data) {
-            axios.get('/api/questions/' + data)
+        async getQuestion({commit}, data) {
+            await axios.get('/api/questions/' + data)
                 .then(res => {
                     commit('setQuestion', res.data.data)
 
@@ -79,8 +79,8 @@ export const question = {
                 })
         },
         toggleLike({commit},id){
-            return new Promise((resolve,reject)=>{
-                axios.post('/api/questions/'+id+'/like')
+            return new Promise(async (resolve,reject)=>{
+                await axios.post('/api/questions/'+id+'/like')
                     .then(res=>{
                         resolve(res.data.data)
                     })
@@ -91,16 +91,16 @@ export const question = {
             //     .then(res=>{
             //         resolve('sss')
             //     })
-            return new Promise((resolve,reject)=>{
-                axios.post('/api/replies/'+id+'/like')
+            return new Promise(async (resolve,reject)=>{
+                await axios.post('/api/replies/'+id+'/like')
                     .then(res=>{
                         resolve(res.data.data)
                     })
             })
         },
-        deleteQuestion({commit},id){
+        async deleteQuestion({commit},id){
 
-            axios.delete('/api/questions/'+id)
+            await axios.delete('/api/questions/'+id)
                 .then(res=>{
                     commit('setAllQuestions',res.data.data)
                     Vue.swal('Success','Success for deleting!','success')
