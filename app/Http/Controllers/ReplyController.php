@@ -7,6 +7,7 @@ use App\Http\Resources\ReplyCollection;
 use App\Http\Resources\ReplyResource;
 use App\Models\Question;
 use App\Models\Reply;
+use App\Notifications\ReplyNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -35,6 +36,8 @@ class ReplyController extends Controller
             'question_id'=>$request->question_id,
             'body'=>$request->body
         ]);
+        $user=$reply->question->user;
+        $user->notify(new ReplyNotification($reply));
         return new ReplyResource($reply);
     }
 

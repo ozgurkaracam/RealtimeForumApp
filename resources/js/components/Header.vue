@@ -3,6 +3,7 @@
         <v-toolbar class="blue-grey lighten-5">
             <router-link tag="v-toolbar-title" to="/">Realtime Forum App</router-link>
             <v-spacer></v-spacer>
+            <Notifications />
             <v-toolbar-items class="hidden-sm-and-down">
                 <router-link v-for="link in links" :key="link.title" :to="link.to" tag="v-btn" v-if="link.show" class="blue-grey lighten-5">
                     {{ link.title }}
@@ -17,8 +18,10 @@
 
 <script>
 import {mapGetters} from 'vuex'
+import Notifications from "./Header/Notifications";
 
 export default {
+    components: {Notifications},
     computed: {
         ...mapGetters(['user','loggedIn']),
         links(){

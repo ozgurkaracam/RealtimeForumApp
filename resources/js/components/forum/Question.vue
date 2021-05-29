@@ -3,6 +3,7 @@
         elevation="5"
         shaped
         class="mb-3"
+        v-if="data"
     >
         <v-card-title>
             <span v-if="!editMode">{{data.attributes.title}}</span>

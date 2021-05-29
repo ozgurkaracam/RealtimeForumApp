@@ -14,7 +14,7 @@
 
         </v-card-title>
         <v-card-subtitle class="justify-space-between">
-            <v-span>{{data.attributes.created_at}}</v-span>
+            <span>{{data.attributes.created_at}}</span>
         </v-card-subtitle>
         <v-card-text v-html="data.attributes.body" v-if="!editMode">
         </v-card-text>

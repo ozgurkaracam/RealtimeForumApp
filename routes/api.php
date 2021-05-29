@@ -20,6 +20,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 
 Route::middleware('auth:sanctum')->group(function(){
+    Route::resource('notifications',\App\Http\Controllers\NotificationController::class);
     Route::apiResource('questions',\App\Http\Controllers\QuestionController::class);
     Route::apiResource('categories',\App\Http\Controllers\CategoryController::class);
     Route::apiResource('replies',\App\Http\Controllers\ReplyController::class);
