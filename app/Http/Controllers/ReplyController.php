@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\LikeEvent;
 use App\Http\Resources\QuestionResource;
 use App\Http\Resources\ReplyCollection;
 use App\Http\Resources\ReplyResource;
@@ -87,6 +88,7 @@ class ReplyController extends Controller
     public function likereply($id)
     {
         Auth::user()->likedreplies()->toggle(Reply::findOrFail($id));
+        event(new LikeEvent(new ReplyResource(Reply::findOrFail($id)),'reply'));
         return new ReplyResource(Reply::where('id',$id)->with(['likedusers','question'])->firstOrFail());
     }
 }

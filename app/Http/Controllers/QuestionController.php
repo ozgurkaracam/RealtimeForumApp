@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\LikeEvent;
+use App\Events\NotificationCreated;
 use App\Http\Resources\QuestionCollection;
 use App\Http\Resources\QuestionResource;
 use App\Http\Resources\UserResource;
@@ -19,6 +21,7 @@ class QuestionController extends Controller
      */
     public function index()
     {
+        event(new NotificationCreated(Auth::user()));
         return new QuestionCollection(Question::withCount(['replies','likedusers'])->orderBy('id','DESC')->get());
     }
 
@@ -81,6 +84,7 @@ class QuestionController extends Controller
         $question=Question::find($id);
 //        return response()->json(['Merhaba'=>$question]);
         Auth::user()->likedquestions()->toggle($question);
+        event(new LikeEvent(new QuestionResource($question),'question'));
         return new QuestionResource($question);
     }
 }

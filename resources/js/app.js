@@ -8,6 +8,12 @@ import axios from "axios";
 import './plugins/markdown'
 import './plugins/sweetalert'
 import './plugins/ckeditor'
+import 'pusher-js'
+// window.Pusher = require('pusher-js');
+
+window.Pusher=new Pusher('753f53131fe08ddcafda', {
+    cluster: 'eu'
+});
 
 const app = new Vue({
     el: '#app',
