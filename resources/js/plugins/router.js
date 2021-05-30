@@ -8,14 +8,19 @@ import store from "../store/store";
 import QuestionDetails from "../views/QuestionDetails";
 import Categories from "../components/forum/Categories";
 import Category from "../views/Category";
+import axios from "axios";
+
 
 Vue.use(VueRouter)
 
-const islogin= (to,from,next)=>{
+
+
+const islogin= async (to,from,next)=>{
     console.log(store.getters.loggedIn)
     if(store.getters.loggedIn)
         next('/')
-    next()
+    else
+        next()
 }
 
 const routes=[

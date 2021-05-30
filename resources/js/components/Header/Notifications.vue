@@ -3,7 +3,7 @@
         <v-menu offset-y>
             <template v-slot:activator="{ on, attrs }">
                 <v-btn
-                    color="primary"
+                    color="red"
                     dark
                     v-bind="attrs"
                     v-on="on"
@@ -37,10 +37,17 @@ export default {
         }
     },
     computed:{
-      ...mapGetters(['notifications','unreadnotifications'])
+      ...mapGetters(['notifications','unreadnotifications','user'])
     },
     mounted(){
         this.$store.dispatch('getAllNotifications')
+    },
+    async created() {
+        await this.$store.dispatch('getUser');
+        // Echo.private('App.Models.User.' + this.user.id)
+        //     .notification((notification) => {
+        //         console.log(notification);
+        //     });
     }
 }
 </script>

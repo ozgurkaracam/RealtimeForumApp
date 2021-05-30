@@ -8,7 +8,7 @@
             </v-row>
             <v-divider class="mb-10"></v-divider>
             <SendReply />
-            <Answers />
+            <Answers :replies="question.relationships.replies.data" />
         </v-container>
     </v-main>
 </template>
@@ -30,9 +30,8 @@ export default {
     },
     async created() {
         await this.$store.dispatch('getQuestion', this.$route.params.slug)
-        window.Pusher.subscribe('send-reply-channel-'+this.question.id).bind('send-reply-event-'+this.question.id,(e)=>{
-            console.log(e)
-            this.$store.dispatch('getQuestion', this.$route.params.slug)
+        window.Pusher.subscribe('delete-reply-channel-'+this.question.id).bind('delete-reply-event-'+this.question.id,(e)=>{
+            this.$store.commit('deleteReply',e.reply)
         })
     }
 }

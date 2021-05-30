@@ -20,10 +20,15 @@ export const question = {
             state.replies = data
         },
         pushReply(state,data){
-            state.replies.unshift(data)
+            state.replies.push(data)
         },
         pushQuestion(state,data){
             state.questions.unsift(data)
+        },
+        deleteReply(state,data){
+            state.replies=state.replies.filter((val)=>{
+                return val.id!==data
+            })
         }
     },
     actions: {
@@ -51,12 +56,13 @@ export const question = {
 
                 }).catch(err=>router.push({name:'home'}))
         },
-        sendReply({commit,state},data){
-            axios.post('/api/replies',{
+        async sendReply({commit,state},data){
+            await axios.post('/api/replies',{
                 question_id:state.question.id,
                 body:data
             })
                 .then(res=>{
+                    console.log(res.data.data)
                     commit('pushReply',res.data.data)
 
                     Vue.swal('Success!!',"Your Reply added",'success')
@@ -71,7 +77,6 @@ export const question = {
             axios.post('/api/questions',data)
                 .then(res=>{
                     Vue.swal('Success!','Your Question Sended','success')
-                    console.log(res.data)
                     router.push({'name':'home'})
                 })
                 .catch(err=>{

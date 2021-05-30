@@ -5,15 +5,15 @@ export const user = {
     state: {
         user: {},
         status: '',
-        loggedIn: null,
+        loggedIn: false,
         errors: {}
     },
     mutations: {
         setUser(state, data) {
-            if (data != {})
-                state.loggedIn = true
+            if (data=={})
+                state.loggedIn = false
             else
-                state.loggedIn=false
+                state.loggedIn=true
             state.user = data.data
         },
         setToken(state, data) {
@@ -58,14 +58,23 @@ export const user = {
 
         },
         logout({commit}) {
+            commit('logout')
             axios.post('/api/logout')
                 .then(res => {
                     commit('logout')
                 })
         },
-        getUser({commit}) {
-            axios.get('/api/user')
-                .then(res => commit('setUser', res.data))
+        async getUser({commit}) {
+            await axios.get('/api/user')
+                .then(res => {
+                    console.log(res.status)
+                    if(res.status==200)
+                        commit('setUser', res.data)
+                    else {
+                        commit('setUser', {})
+                        localStorage.removeItem('token')
+                    }
+                })
                 .catch(err => {
                     commit('setUser', {})
                     localStorage.removeItem('token')

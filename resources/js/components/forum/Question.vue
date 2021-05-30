@@ -51,8 +51,9 @@ export default {
     computed:{
       ...mapGetters(['user'])
     },
-    mounted(){
-        window.Pusher.subscribe('question-channel-like-'+this.data.id).bind('question-like-event-'+this.data.id,(e)=>{
+    created(){
+        Pusher.subscribe('question-channel-like-'+this.data.id).bind('question-like-event-'+this.data.id,(e)=>{
+            console.log(e)
             this.data.counts.likedusers_count=e.like.counts.likedusers_count
         })
     },

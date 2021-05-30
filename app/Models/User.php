@@ -56,4 +56,5 @@ class User extends Authenticatable
     {
         return $this->morphedByMany(Reply::class,'like','likes','user_id','like_id');
     }
+
 }

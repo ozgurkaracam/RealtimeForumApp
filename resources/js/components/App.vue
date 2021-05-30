@@ -13,10 +13,10 @@ import axios from "axios";
 import store from "../store/store";
 export default {
     components: {Footer, Header},
-    async beforeCreate() {
+    beforeCreate() {
         if(localStorage.getItem('token')){
             axios.defaults.headers.common['Authorization']=localStorage.getItem('token')
-            await store.dispatch('getUser')
+            this.$store.dispatch('getUser')
         }
     }
 }

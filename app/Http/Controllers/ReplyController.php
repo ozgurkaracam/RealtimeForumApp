@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Events\LikeEvent;
+use App\Events\ReplyDeleted;
 use App\Events\SendReply;
 use App\Http\Resources\QuestionResource;
 use App\Http\Resources\ReplyCollection;
@@ -80,6 +81,7 @@ class ReplyController extends Controller
     {
         $reply=Reply::findOrFail($id);
         $this->authorize('delete',$reply);
+        event(new ReplyDeleted($reply->id,$reply->question->id));
         $reply->delete();
         $question=Question::where('slug',$reply->question->slug)->withCount('replies')->with(['replies'=>function($query){
         $query->orderBy('id','DESC');

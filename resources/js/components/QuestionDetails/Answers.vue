@@ -13,8 +13,13 @@ import Answer from "./Answer";
 
 export default {
     components: {Answer},
-    computed:{
-        ...mapGetters(['replies'])
+    props:['replies'],
+    async mounted() {
+        await this.$store.dispatch('getQuestion',this.$route.params.slug)
+        Pusher.subscribe('send-reply-channel-'+this.replies[0].relationships.question_id).bind('send-reply-event-'+this.replies[0].relationships.question_id,(e)=>{
+
+            this.replies.push(e.reply)
+        })
     }
 }
 </script>
