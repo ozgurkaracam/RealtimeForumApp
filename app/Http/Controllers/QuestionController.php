@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Events\LikeEvent;
 use App\Events\NotificationCreated;
+use App\Events\QuestionCreated;
 use App\Http\Resources\QuestionCollection;
 use App\Http\Resources\QuestionResource;
 use App\Http\Resources\UserResource;
@@ -11,6 +12,7 @@ use App\Models\Question;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Psy\Util\Str;
 
 class QuestionController extends Controller
 {
@@ -33,7 +35,8 @@ class QuestionController extends Controller
      */
     public function store(Request $request)
     {
-            $question=Auth::user()->questions()->create($request->all());
+            $question=Auth::user()->questions()->create(array_merge($request->all(),['slug'=>\Illuminate\Support\Str::slug($request->title)]));
+            event(new QuestionCreated(new QuestionResource($question->withCount(['replies','likedusers'])->orderBy('id','DESC')->first())));
             return new QuestionResource($question);
     }
 

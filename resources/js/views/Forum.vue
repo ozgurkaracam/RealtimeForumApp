@@ -26,6 +26,9 @@ export default {
       ...mapGetters(['questions']),
     },
     mounted() {
+        Pusher.subscribe('question-created-channel').bind('question-created-event',(e)=>{
+            this.$store.dispatch('getAllQuestions')
+        })
         if(this.$route.name==='categoryquestions'){
             console.log(this.$route.params.slug)
             this.$store.dispatch('getCategoryQuestions',this.$route.params.slug)

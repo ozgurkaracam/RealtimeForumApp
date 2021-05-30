@@ -49,12 +49,17 @@ import {mapGetters} from 'vuex'
 export default {
     props: ['data'],
     computed:{
-      ...mapGetters(['user'])
+      ...mapGetters(['user','questions'])
     },
     created(){
+
+    },
+    mounted(){
+      console.log(this.data.id)
         Pusher.subscribe('question-channel-like-'+this.data.id).bind('question-like-event-'+this.data.id,(e)=>{
             console.log(e)
             this.data.counts.likedusers_count=e.like.counts.likedusers_count
+
         })
     },
     data(){
